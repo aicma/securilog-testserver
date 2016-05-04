@@ -1,0 +1,13 @@
+{
+  "name": "securilog-server",
+  "version": "1.1.1",
+  "description": "securilog server with mondo DB via mongoose",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongo": "^0.1.0",
+    "mongoose": "^4.4.14"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
