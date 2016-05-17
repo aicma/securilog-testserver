@@ -10,24 +10,24 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback(){
-    var personSchema = new mongoose.Schema({
+    var personSchema = new db.Schema({
         name: String,
         firstName: String,
         isMale: Boolean,
         birthday: Date
     });
 
-    var userSchema = new mongoose.Schema({
+    var userSchema = new db.Schema({
         name: String,
         firstName: String,
         isAdmin: Boolean
     });
 
-    var locationSchema = new mongoose.Schema({
+    var locationSchema = new db.Schema({
         name: String
     });
 
-    var eventSchema = new mongoose.Schema({
+    var eventSchema = new db.Schema({
         date: { type: Date, default: Date.now },
         description: String,
         del_req: Boolean,
@@ -35,12 +35,17 @@ db.once('open', function callback(){
         createdBy: userSchema,
         location: locationSchema
 
-    })
+    });
+
+    var Person = db.model('Person', personSchema);
+    var User = db.model('User', userSchema);
+    var location = db.model('Location', locationSchema);
+    var Event = db.model('Event', eventSchema);
     
 })
 
 app.get('/', function(req, res){
-    res.send('get request received ' + db.stats() );
+    res.send('get request received ' );
 });
 
 app.listen(PORT, function(){
