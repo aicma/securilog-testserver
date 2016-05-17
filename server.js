@@ -17,6 +17,12 @@ db.once('open', function callback(){
         birthday: Date
     });
 
+    var userSchema = new mongoose.Schema({
+        name: String,
+        firstName: String,
+        isAdmin: Boolean
+    });
+
     var eventSchema = new mongoose.Schema({
         date: { type: Date, default: Date.now },
         description: String,
@@ -26,13 +32,6 @@ db.once('open', function callback(){
         location: locationSchema
 
     });
-
-    var userSchema = new mongoose.Schema({
-        name: String,
-        firstName: String,
-        isAdmin: Boolean
-    });
-
     
     var locationSchema = new mongoose.Schema({
         name: String,
