@@ -42,7 +42,7 @@ db.once('open', function callback(){
 })
 
 app.get('/', function(req, res){
-    res.send('get request received');
+    res.send('get request received'+ db.stats());
 });
 
 app.listen(PORT, function(){
