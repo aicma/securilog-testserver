@@ -41,10 +41,18 @@ db.once('open', function callback(){
     var User = db.model('User', userSchema);
     var location = db.model('Location', locationSchema);
     var Event = db.model('Event', eventSchema);
+
+    var alex = new Person({
+        name: "Mersdorf",
+        firstName: "Alex",
+        isMale: true,
+        birthday: 24-11-1987
+    })
     
 })
 
 app.get('/', function(req, res){
+    console.log(alex.name);
     res.send('get request received ' );
 });
 
