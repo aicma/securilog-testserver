@@ -22,6 +22,12 @@ db.once('open', function callback(){
         firstName: String,
         isAdmin: Boolean
     });
+    
+    var locationSchema = new mongoose.Schema({
+        name: String,
+        employees: [userSchema],
+        events: [eventSchema]
+    });
 
     var eventSchema = new mongoose.Schema({
         date: { type: Date, default: Date.now },
@@ -31,13 +37,8 @@ db.once('open', function callback(){
         createdBy: userSchema,
         location: locationSchema
 
-    });
-    
-    var locationSchema = new mongoose.Schema({
-        name: String,
-        employees: [userSchema],
-        events: [eventSchema]
     })
+    
 })
 
 app.get('/', function(req, res){
