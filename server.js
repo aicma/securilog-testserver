@@ -3,7 +3,7 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 var mongoose = require('mongoose');
-var mongoDbUri = 'mongodb://heroku_2:securilog@ds013340.mlab.com:13340/heroku_2zhtbsdn';
+var mongoDbUri = 'mongodb://amf:241187@ds013340.mlab.com:13340/heroku_2zhtbsdn';
 mongoose.connect(mongoDbUri);
 var db = mongoose.connection;
 
@@ -42,7 +42,7 @@ db.once('open', function callback(){
 })
 
 app.get('/', function(req, res){
-    res.send('get request received'+ db.stats());
+    res.send('get request received ' + db.stats() );
 });
 
 app.listen(PORT, function(){
