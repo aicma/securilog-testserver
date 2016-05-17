@@ -10,24 +10,24 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback(){
-    var personSchema = new db.Schema({
+    var personSchema = new mongoose.Schema({
         name: String,
         firstName: String,
         isMale: Boolean,
         birthday: Date
     });
 
-    var userSchema = new db.Schema({
+    var userSchema = new mongoose.Schema({
         name: String,
         firstName: String,
         isAdmin: Boolean
     });
 
-    var locationSchema = new db.Schema({
+    var locationSchema = new mongoose.Schema({
         name: String
     });
 
-    var eventSchema = new db.Schema({
+    var eventSchema = new mongoose.Schema({
         date: { type: Date, default: Date.now },
         description: String,
         del_req: Boolean,
