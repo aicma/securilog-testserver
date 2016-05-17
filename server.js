@@ -22,11 +22,9 @@ db.once('open', function callback(){
         firstName: String,
         isAdmin: Boolean
     });
-    
+
     var locationSchema = new mongoose.Schema({
-        name: String,
-        employees: [userSchema],
-        events: [eventSchema]
+        name: String
     });
 
     var eventSchema = new mongoose.Schema({
