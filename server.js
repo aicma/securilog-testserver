@@ -7,6 +7,8 @@ var mongoDbUri = 'mongodb://amf:241187@ds013340.mlab.com:13340/heroku_2zhtbsdn';
 mongoose.connect(mongoDbUri);
 var db = mongoose.connection;
 
+var person1;
+
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback(){
@@ -44,7 +46,7 @@ db.once('open', function callback(){
     var location = db.model('Location', locationSchema);
     var Event = db.model('Event', eventSchema);
 
-    var person1 = new Person({
+    person1 = new Person({
         name: 'Mersdorf',
         firstName: 'Alex',
         isMale: true,
