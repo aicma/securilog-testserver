@@ -44,6 +44,15 @@ db.once('open', function callback(){
     var location = db.model('Location', locationSchema);
     var Event = db.model('Event', eventSchema);
 
+    var person1 = new Person({
+        name: 'Mersdorf',
+        firstName: 'Alex',
+        isMale: true,
+    });
+
+    person1.save(function(err){
+        if(err) throw err;
+        console.log('person saved');
     })
     
 })
