@@ -60,7 +60,7 @@ db.once('open', function callback(){
 })
 
 app.get('/', function(req, res){
-    console.log(alex.name);
+    console.log(person1.name);
     res.send('get request received ' );
 });
 
