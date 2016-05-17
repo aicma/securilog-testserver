@@ -10,6 +10,8 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback(){
+    console.log('connected to db');
+
     var personSchema = new mongoose.Schema({
         name: String,
         firstName: String,
@@ -42,11 +44,6 @@ db.once('open', function callback(){
     var location = db.model('Location', locationSchema);
     var Event = db.model('Event', eventSchema);
 
-    var alex = new Person({
-        name: "Mersdorf",
-        firstName: "Alex",
-        isMale: true,
-        birthday: 24-11-1987
     })
     
 })
