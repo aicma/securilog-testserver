@@ -45,23 +45,26 @@ db.once('open', function callback(){
     var User = db.model('User', userSchema);
     var location = db.model('Location', locationSchema);
     var Event = db.model('Event', eventSchema);
-
-    person1 = new Person({
-        name: 'Mersdorf',
-        firstName: 'Alex',
-        isMale: true,
-    });
-
-    person1.save(function(err){
-        if(err) throw err;
-        console.log('person saved');
-    })
     
 })
 
 app.get('/', function(req, res){
     console.log(person1.name);
     res.send('get request received ' );
+});
+
+app.post('/:name:firstName:isMale:Date', function(req,res){
+    person1 = new Person({
+        name: req.params.name,
+        firstName: req.params.firstName,
+        isMale: req.params.isMale,
+        borthday: rq.params.Date
+    });
+
+    person1.save(function(err){
+        if(err) throw err;
+        console.log('person saved');
+    })
 });
 
 app.listen(PORT, function(){
