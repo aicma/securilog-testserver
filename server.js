@@ -10,7 +10,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback(){
-    var eventSchema = mongoose.Schema({
+    var eventSchema = new Schema({
         date: { type: Date, default: Date.now },
         description: String,
         del_req: Boolean,
@@ -20,13 +20,13 @@ db.once('open', function callback(){
 
     });
 
-    var userSchema = mongoose.Schema({
+    var userSchema = new Schema({
         name: String,
         firstName: String,
         isAdmin: Boolean
     });
 
-    var personSchema = mongoose.Schema({
+    var personSchema = new Schema({
         name: String,
         firstName: String,
         isMale: Boolean,
@@ -34,7 +34,7 @@ db.once('open', function callback(){
         involved: [eventSchema]
     });
 
-    var locationSchema = mongoose.Schema({
+    var locationSchema = new Schema({
         name: String,
         employees: [userSchema],
         events: [eventSchema]
