@@ -33,7 +33,7 @@ app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
         name: req.params.name,
         firstName: req.params.firstName,
         isMale: req.params.isMale,
-        birthday: rq.params.date
+        birthday: req.params.date
     })
 
     Person.find(tempPerson, function(err, person){
