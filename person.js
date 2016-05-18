@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var personSchema = new mongoose.Schema({
+        //PERSO NUMMER = ID
         name: String,
         firstName: String,
         isMale: Boolean,
