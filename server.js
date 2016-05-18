@@ -30,7 +30,7 @@ app.post('/person/new/:name/:firstName/:isMale/', function(req,res){
         name: req.params.name,
         firstName: req.params.firstName,
         isMale: req.params.isMale,
-        birthday: new Date();
+        birthday: new Date()
     })
 
     tempPerson.save(function(err){
