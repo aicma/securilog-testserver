@@ -1,4 +1,4 @@
-var mongooose = require('mongoose');
+var mongoose = require('mongoose');
 
 var personSchema = new mongoose.Schema({
         name: String,
