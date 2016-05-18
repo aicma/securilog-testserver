@@ -7,53 +7,25 @@ var mongoDbUri = 'mongodb://amf:241187@ds013340.mlab.com:13340/heroku_2zhtbsdn';
 mongoose.connect(mongoDbUri);
 var db = mongoose.connection;
 
-var person1;
+var Person = require('person.js');
+var User = require('user.js');
+var Event = require('event.js');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback(){
     console.log('connected to db');
-
-    var personSchema = new mongoose.Schema({
-        name: String,
-        firstName: String,
-        isMale: Boolean,
-        birthday: Date
-    });
-
-    var userSchema = new mongoose.Schema({
-        name: String,
-        firstName: String,
-        isAdmin: Boolean
-    });
-
-    var locationSchema = new mongoose.Schema({
-        name: String
-    });
-
-    var eventSchema = new mongoose.Schema({
-        date: { type: Date, default: Date.now },
-        description: String,
-        del_req: Boolean,
-        inv_person: [personSchema],
-        createdBy: userSchema,
-        location: locationSchema
-
-    });
-
-    var Person = db.model('Person', personSchema);
-    var User = db.model('User', userSchema);
-    var location = db.model('Location', locationSchema);
-    var Event = db.model('Event', eventSchema);
     
 })
 
 app.get('/', function(req, res){
-    console.log(person1.name);
+    
     res.send('get request received ' );
 });
 
-app.post('/:name:firstName:isMale:Date', function(req,res){
+app.post('/person/new/:name', function(req,res){
+    console.log(req.params.name);
+/*
     person1 = new Person({
         name: req.params.name,
         firstName: req.params.firstName,
@@ -64,7 +36,7 @@ app.post('/:name:firstName:isMale:Date', function(req,res){
     person1.save(function(err){
         if(err) throw err;
         console.log('person saved');
-    })
+    })*/
 });
 
 app.listen(PORT, function(){
