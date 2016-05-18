@@ -18,39 +18,33 @@ db.once('open', function callback(){
     
 })
 
-app.get('/', function(req, res){
+app.get('/:name', function(req, res){
+    //res.send('get request received ' );
+    Person.find({name: req.params.name}, function(err, person){
+        if(err){console.log('no one found');}
+        res.send('i found: ' + person);
+    })
     
-    res.send('get request received ' );
 });
 
-app.post('/person/new/:name/:firstName/:isMale/', function(req,res){
-    console.log(req.params.name+ ', '+ req.params.firstName);
+app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
 
     var tempPerson = new Person({
         name: req.params.name,
         firstName: req.params.firstName,
         isMale: req.params.isMale,
-        birthday: new Date()
+        birthday: date
     })
+
+    if(Person.find(tempPerson, function(err, person){}))
 
     tempPerson.save(function(err){
         if(err) throw err;
         console.log(tempPerson.name + ' saved');
     })
-    res.send('')
-/*
-    person1 = new Person({
-        name: req.params.name,
-        firstName: req.params.firstName,
-        isMale: req.params.isMale,
-        borthday: rq.params.Date
-    });
-
-    person1.save(function(err){
-        if(err) throw err;
-        console.log('person saved');
-    })*/
 });
+
+
 
 app.listen(PORT, function(){
   console.log('listening on Port: '+ PORT);
