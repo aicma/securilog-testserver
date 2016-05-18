@@ -36,12 +36,18 @@ app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
         birthday: date
     })
 
-    if(Person.find(tempPerson, function(err, person){}))
-
-    tempPerson.save(function(err){
-        if(err) throw err;
-        console.log(tempPerson.name + ' saved');
+    Person.find(tempPerson, function(err, person){
+        if(err){
+            console.log('')
+            tempPerson.save(function(err){
+                if(err) throw err;
+                console.log(tempPerson.name + ' saved');
+            })
+        }
+        res.send('the person already exists');
     })
+
+    
 });
 
 
