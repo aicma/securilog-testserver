@@ -36,7 +36,12 @@ app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
         birthday: req.params.date
     })
 
-    Person.find(tempPerson, function(err, persons){
+    Person.find({
+        name: req.params.name,
+        firstName: req.params.firstName,
+        isMale: req.params.isMale,
+        birthday: req.params.date
+    }, function(err, persons){
         console.log(persons.length)
     })
 
