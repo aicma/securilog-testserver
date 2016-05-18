@@ -7,9 +7,9 @@ var mongoDbUri = 'mongodb://amf:241187@ds013340.mlab.com:13340/heroku_2zhtbsdn';
 mongoose.connect(mongoDbUri);
 var db = mongoose.connection;
 
-var Person = require('person.js');
-var User = require('user.js');
-var Event = require('event.js');
+var Person = require('./person.js');
+var User = require('./user.js');
+var Event = require('./event.js');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
