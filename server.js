@@ -27,13 +27,13 @@ app.get('/:name', function(req, res){
     
 });
 
-app.post('/person/new/:name/:firstName/:isMale', function(req,res){
+app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
 
     var tempPerson = new Person({
         name: req.params.name,
         firstName: req.params.firstName,
         isMale: req.params.isMale,
-        //birthday: req.params.date
+        birthday: req.params.date
     })
 
     Person.find(tempPerson, function(err, persons){
@@ -42,7 +42,7 @@ app.post('/person/new/:name/:firstName/:isMale', function(req,res){
 
     tempPerson.save(function(err){
         if(err) throw err;
-        console.log(tempPerson.name + ' saved');
+        res.send(tempPerson.name + ' saved');
     })
 });
 
