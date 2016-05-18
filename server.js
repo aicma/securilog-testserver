@@ -38,7 +38,7 @@ app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
 
     Person.find(tempPerson, function(err, person){
         if(err) throw err;
-        console.log(person);
+        console.log(person.length);
         res.send('the person already exists');
         
     })
