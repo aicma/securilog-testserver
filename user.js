@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var ObjectId = Schema.ObjectId;
+var ObjectId = mongoose.Schema.ObjectId;
 
 var userSchema = new mongoose.Schema({
         name: String,
