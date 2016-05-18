@@ -23,8 +23,21 @@ app.get('/', function(req, res){
     res.send('get request received ' );
 });
 
-app.post('/person/new/:name', function(req,res){
-    console.log(req.params.name);
+app.post('/person/new/:name/:firstName/:isMale/', function(req,res){
+    console.log(req.params.name+ ', '+ req.params.firstName);
+
+    var tempPerson = new Person({
+        name: req.params.name,
+        firstName: req.params.firstName,
+        isMale: req.params.isMale,
+        birthday: new Date();
+    })
+
+    tempPerson.save(function(err){
+        if(err) throw err;
+        console.log(tempPerson.name + ' saved');
+    })
+    res.send('')
 /*
     person1 = new Person({
         name: req.params.name,

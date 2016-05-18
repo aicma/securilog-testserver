@@ -4,7 +4,7 @@ var personSchema = new mongoose.Schema({
         name: String,
         firstName: String,
         isMale: Boolean,
-        birthday: Date
+        birthday: {type: Date, default: Date.now}
     });
 
 module.exports = mongoose.model('Person', personSchema);
