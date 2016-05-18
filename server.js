@@ -42,13 +42,17 @@ app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
         isMale: req.params.isMale,
         birthday: req.params.date
     }, function(err, persons){
-        console.log(persons.length)
+        if(persons.length == 0){
+            tempPerson.save(function(err){
+            if(err) throw err;
+            res.send(tempPerson.name + ' saved');
+            })
+        }else{
+            console.log('that person already exists in the Database')
+        }
     })
 
-    tempPerson.save(function(err){
-        if(err) throw err;
-        res.send(tempPerson.name + ' saved');
-    })
+    
 });
 
 
