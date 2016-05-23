@@ -10,6 +10,7 @@ var db = mongoose.connection;
 var Person = require('./person.js');
 var User = require('./user.js');
 var Event = require('./event.js');
+var Location = require('./location.js')
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
@@ -18,13 +19,61 @@ db.once('open', function callback(){
     
 })
 
-app.get('/:name', function(req, res){
-    //res.send('get request received ' );
-    Person.find({name: req.params.name}, function(err, person){
+app.get('/people/:name', function(req, res){
+    Person.find({name: req.params.name}, function(err, persons){
         if(err){console.log('no one found');}
-        res.send('i found: ' + person);
+        res.send(persons);
+    })   
+});
+
+app.get('/events/:createdBy',function(req, res){
+    Event.find({createdBy: req.params.createdBy}, function(err, events){
+        if(err) throw err;
+        res.send(events);
     })
-    
+});
+
+app.get('/events',function(req, res){
+    Event.find(function(err, events){
+        if(err) throw err;
+        res.send(events);
+    })
+});
+
+app.post('/event/new/', function(req, res){
+    var jsonString = '';
+
+    req.on('data', function (data) {
+        jsonString += data;
+    });
+
+    req.on('end', function () {
+        var tempEvent = new Event(JSON.parse(jsonString));
+        res.send(tempEvent);
+
+        tempEvent.save(function(err){
+            if(err) throw err;
+        });
+    });
+
+});
+
+app.post('/location/new/', function(req, res){
+    var jsonString = '';
+
+    req.on('data', function (data) {
+        jsonString += data;
+    });
+
+    req.on('end', function () {
+        var tempLocation = new Location(JSON.parse(jsonString));
+        res.send(tempLocation);
+        
+        tempLocation.save(function(err){
+            if(err) throw err;
+        });
+    });
+
 });
 
 app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
@@ -45,16 +94,15 @@ app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
         if(persons.length == 0){
             tempPerson.save(function(err){
             if(err) throw err;
+            //TODO: Write Header
             res.send(tempPerson.name + ' saved');
             })
         }else{
-            console.log('that person already exists in the Database')
+            // TODO: Write Header
+            res.send('that person already exists in the Database')
         }
     })
-
-    
 });
-
 
 
 app.listen(PORT, function(){
