@@ -3,7 +3,10 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 var mongoose = require('mongoose');
-var mongoDbUri = 'mongodb://amf:241187@ds013340.mlab.com:13340/heroku_2zhtbsdn';
+var user = "amf";
+var pw = "241187";
+
+var mongoDbUri = 'mongodb://' + user +':'+ pw + '@ds013340.mlab.com:13340/heroku_2zhtbsdn';
 mongoose.connect(mongoDbUri);
 var db = mongoose.connection;
 
@@ -36,6 +39,7 @@ app.get('/events/:createdBy',function(req, res){
 app.get('/events',function(req, res){
     Event.find(function(err, events){
         if(err) throw err;
+        res.header("Access-Control-Allow-Origin", "*");
         res.send(events);
     })
 });
@@ -55,7 +59,6 @@ app.post('/event/new/', function(req, res){
             if(err) throw err;
         });
     });
-
 });
 
 app.post('/location/new/', function(req, res){
@@ -73,7 +76,6 @@ app.post('/location/new/', function(req, res){
             if(err) throw err;
         });
     });
-
 });
 
 app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
