@@ -29,10 +29,12 @@ app.get('/people/:name', function(req, res){
     })   
 });
 
-app.get('/events/:createdBy',function(req, res){
-    Event.find({createdBy: req.params.createdBy}, function(err, events){
+app.get('/events/:id',function(req, res){
+    Event.findOne({_id: req.params.id}, function(err, oneEvent){
+        console.log('param: '+ req.params.id);
+        console.log(oneEvent);
         if(err) throw err;
-        res.send(events);
+        res.send(event);
     })
 });
 
