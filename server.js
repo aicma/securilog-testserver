@@ -34,7 +34,7 @@ app.get('/events/:id',function(req, res){
         console.log('param: '+ req.params.id);
         console.log(oneEvent);
         if(err) throw err;
-        res.send(event);
+        res.send(OneEvent);
     })
 });
 
