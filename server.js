@@ -34,7 +34,6 @@ app.get('/events/:id/:invName',function(req, res){
     var tempPerson;
     Event.findOne({_id: req.params.id}, function(err, oneEvent){
         if(err) throw err;
-        console.log('param: '+ req.params.id);
         console.log(oneEvent);
         tempEvent = oneEvent;
     });
@@ -48,10 +47,10 @@ app.get('/events/:id/:invName',function(req, res){
 });
 
 app.get('/events/:id',function(req, res){
+    console.log('param: '+ req.params.id);
     Event.findOne({_id: req.params.id}, function(err, oneEvent){
-        if(err) throw err;
-        console.log('param: '+ req.params.id);
         console.log(oneEvent);
+        if(err) throw err;
         res.send(oneEvent);
     })
 });
