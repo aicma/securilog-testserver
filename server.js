@@ -29,11 +29,29 @@ app.get('/people/:name', function(req, res){
     })   
 });
 
-app.get('/events/:id',function(req, res){
+app.get('/events/:id/:invName',function(req, res){
+    var tempEvent;
+    var tempPerson;
     Event.findOne({_id: req.params.id}, function(err, oneEvent){
+        if(err) throw err;
         console.log('param: '+ req.params.id);
         console.log(oneEvent);
+        tempEvent = oneEvent;
+    });
+    Person.findOne({name: rq.params.invName}, function(err, onePerson){
         if(err) throw err;
+        console.log(onePerson);
+        tempPerson = onePerson;
+    })
+    tempEvent.inv_person.push(tempPerson);
+    res.send('new Event: ' + tempEvent);
+});
+
+app.get('/events/:id',function(req, res){
+    Event.findOne({_id: req.params.id}, function(err, oneEvent){
+        if(err) throw err;
+        console.log('param: '+ req.params.id);
+        console.log(oneEvent);
         res.send(oneEvent);
     })
 });
