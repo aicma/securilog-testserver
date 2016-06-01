@@ -38,7 +38,7 @@ app.get('/events/:id/:invName',function(req, res){
         console.log(oneEvent);
         tempEvent = oneEvent;
     });
-    Person.findOne({name: rq.params.invName}, function(err, onePerson){
+    Person.findOne({name: req.params.invName}, function(err, onePerson){
         if(err) throw err;
         console.log(onePerson);
         tempPerson = onePerson;
