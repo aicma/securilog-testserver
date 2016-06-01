@@ -43,6 +43,9 @@ app.get('/events/:id/:invName',function(req, res){
             tempPerson = onePerson;
         }).then(function(){
             tempEvent.inv_person.push(tempPerson);
+            tempEvent.save(function(err){
+                if(err) throw err;
+            });
             res.send('new Event: ' + tempEvent);
         })
     })
