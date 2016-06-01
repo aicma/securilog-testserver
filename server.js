@@ -22,6 +22,13 @@ db.once('open', function callback(){
     
 })
 
+app.get('/people/:id', function(req, res){
+    Person.findOne({name: req.params.id}, function(err, person){
+        if(err){console.log('no one found');}
+        res.send(person);
+    })   
+});
+
 app.get('/people/:name', function(req, res){
     Person.find({name: req.params.name}, function(err, persons){
         if(err){console.log('no one found');}
