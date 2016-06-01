@@ -36,14 +36,16 @@ app.get('/events/:id/:invName',function(req, res){
         if(err) throw err;
         console.log(oneEvent);
         tempEvent = oneEvent;
-    });
-    Person.findOne({name: req.params.invName}, function(err, onePerson){
-        if(err) throw err;
-        console.log(onePerson);
-        tempPerson = onePerson;
+    }).then(function(){
+        Person.findOne({name: req.params.invName}, function(err, onePerson){
+            if(err) throw err;
+            console.log(onePerson);
+            tempPerson = onePerson;
+        }).then(function(){
+            tempEvent.inv_person.push(tempPerson);
+            res.send('new Event: ' + tempEvent);
+        })
     })
-    tempEvent.inv_person.push(tempPerson);
-    res.send('new Event: ' + tempEvent);
 });
 
 app.get('/events/:id',function(req, res){
