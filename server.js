@@ -36,7 +36,21 @@ app.get('/people/:name', function(req, res){
     })   
 });
 
-app.get('/events/:id/:invName',function(req, res){
+app.get('/events/:involvedName', function(req, res){
+    var tempPersons;
+    Person.find(
+        {name: req.params.involvedName}
+        .or([{firstName: req.params.involvedName}]), function(err, persons){
+            tempPersons = persons;
+            console.log(persons);
+        }).then(function(){
+            Event.find({inv_person: tempPersons}, function(err, events){
+                res.send(events);
+            });
+        })
+})
+
+app.put('/events/:id/:invName',function(req, res){
     var tempEvent;
     var tempPerson;
     Event.findOne({_id: req.params.id}, function(err, oneEvent){

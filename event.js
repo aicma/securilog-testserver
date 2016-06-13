@@ -9,7 +9,8 @@ var eventSchema = new mongoose.Schema({
         del_req: {type: Boolean, default: false},
         inv_person: [{type: ObjectId, ref: 'Person'}],
         createdBy: {type: ObjectId, ref: 'User'},
-        location: {type: ObjectId, ref: 'Location'}
+        location: {type: ObjectId, ref: 'Location'},
+        tags: [String]
 });
 
 module.exports = mongoose.model('Event', eventSchema);
