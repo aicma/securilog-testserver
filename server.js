@@ -38,7 +38,7 @@ app.get('/people/:name', function(req, res){
 
 app.get('/events/:involvedName', function(req, res){
     var tempPersons;
-    Person.find({name: req.params.involvedName}), function(err, persons){
+    Person.find({name: req.params.involvedName}, function(err, persons){
             tempPersons = persons;
             console.log(persons);
         }).then(function(){
