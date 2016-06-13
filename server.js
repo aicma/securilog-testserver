@@ -45,7 +45,7 @@ app.get('/events/:involvedName', function(req, res){
         }).then(function(){
             for(var i = 0; i < tempPersons.length; i++){
                 Event.find({inv_person: tempPersons[i]}, function(err, events){
-                    events.forEach(resultEvents.push(currentValue));
+                    events.forEach(resultEvents.push(element));
                 });
             }
         })
