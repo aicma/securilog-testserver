@@ -38,13 +38,16 @@ app.get('/people/:name', function(req, res){
 
 app.get('/events/:involvedName', function(req, res){
     var tempPersons;
+    var resultEvents = [];
     Person.find({name: req.params.involvedName}, function(err, persons){
             tempPersons = persons;
             console.log(persons);
         }).then(function(){
-            Event.find({inv_person: tempPersons}, function(err, events){
-                res.send(events);
-            });
+            for(var i = 0; i < tempPersons.length; i++){
+                Event.find({inv_person: tempPersons[i]}, function(err, events){
+                    events.forEach(resultEvents.push(currentValue));
+                });
+            }
         })
 })
 
