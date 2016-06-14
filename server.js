@@ -44,7 +44,7 @@ app.get('/events/:involvedName', function(req, res){
             tempPersons = persons;
             console.log(persons);
         }).then(function(){
-            return new Promise(res, rej){
+            return new Promise(res, rej) {
             for(var i = 0; i < tempPersons.length; i++){
                 Event.find({inv_person: tempPersons[i]}, function(err, events){
                     if(err){rej(err);}
