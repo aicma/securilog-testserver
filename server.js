@@ -54,6 +54,7 @@ app.get('/events/:involvedName', function(req, res){
                     }
                 });
             }
+            console.log("res: " + resultEvents);
             res();
         }
         }).then(function(){
