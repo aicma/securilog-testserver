@@ -44,14 +44,18 @@ app.get('/events/:involvedName', function(req, res){
             tempPersons = persons;
             console.log(persons);
         }).then(function(){
+            return new Promise(res, rej){
             for(var i = 0; i < tempPersons.length; i++){
                 Event.find({inv_person: tempPersons[i]}, function(err, events){
+                    if(err){rej(err);}
                     for(var j = 0; j < tempPersons.length; j++){
                         console.log(events[j])
                         resultEvents.push(events[j]);
                     }
                 });
             }
+            res();
+        }
         }).then(function(){
             res.send(resultEvents);
         })
