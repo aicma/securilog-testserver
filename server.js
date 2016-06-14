@@ -52,7 +52,7 @@ app.get('/events/:involvedName', function(req, res){
                     }
                 });
             }
-        }).finally(function(){
+        }).then(function(){
             res.send(resultEvents);
         })
 })
