@@ -45,7 +45,8 @@ app.get('/events/:involvedName', function(req, res){
                 if(err) throw err;
             res.send(events);
         })
-})
+    })
+});
 
 app.put('/events/:id/:invName',function(req, res){
     var tempEvent;
