@@ -40,7 +40,7 @@ app.get('/events/:involvedName', function(req, res){
     var tempPersons;
     var resultEvents = [];
     Person.find({name: req.params.involvedName}, function(err, persons){
-            
+
             tempPersons = persons;
             console.log(persons);
         }).then(function(){
@@ -52,6 +52,7 @@ app.get('/events/:involvedName', function(req, res){
                     }
                 });
             }
+        }).finall(function(){
             res.send(resultEvents);
         })
 })
