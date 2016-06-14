@@ -39,6 +39,9 @@ app.get('/people/:name', function(req, res){
 app.get('/events/:involvedName', function(req, res){
     var tempPerson;
     Person.findOne({name: req.params.involvedName}, function(err, person){
+        if(!person){
+            res.send('Es ist keine Person mit diesem Namen hinterlegt');
+        }
         tempPerson = person;
         }).then(function(){
             Event.find({inv_person: tempPerson}, function(err, events){
