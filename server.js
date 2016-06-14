@@ -37,28 +37,13 @@ app.get('/people/:name', function(req, res){
 });
 
 app.get('/events/:involvedName', function(req, res){
-    var tempPersons;
-    var resultEvents = [];
-    Person.find({name: req.params.involvedName}, function(err, persons){
-
-            tempPersons = persons;
-            console.log(persons);
+    var tempPerson;
+    Person.findOne({name: req.params.involvedName}, function(err, person){
+        tempPerson = person;
         }).then(function(){
-            return new Promise( function(res, rej) {
-            for(var i = 0; i < tempPersons.length; i++){
-                Event.find({inv_person: tempPersons[i]}, function(err, events){
-                    if(err){rej(err);}
-                    for(var j = 0; j < tempPersons.length; j++){
-                        console.log(events[j])
-                        resultEvents.push(events[j]);
-                    }
-                });
-            }
-            console.log("res: " + resultEvents);
-            res();
-        })
-        }).then(function(){
-            res.send(resultEvents);
+            Event.find({inv_person: tempPerson}, function(err, events){
+                if(err) throw err;
+            res.send(events);
         })
 })
 
