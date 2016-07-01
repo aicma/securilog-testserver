@@ -84,10 +84,10 @@ app.put('/events/:id/:invName',function(req, res){
 
 app.get('/events/:id',function(req, res){
     console.log('param: '+ req.params.id);
+    res.header("Access-Control-Allow-Origin", "*");
     Event.findOne({_id: req.params.id}, function(err, oneEvent){
         console.log(oneEvent);
         if(err){
-            res.header("Access-Control-Allow-Origin", "*");
             res.status(404).send('no Such event');
         }
         res.status(200).send(oneEvent);
@@ -95,9 +95,9 @@ app.get('/events/:id',function(req, res){
 });
 
 app.get('/events',function(req, res){
+    res.header("Access-Control-Allow-Origin", "*");
     Event.find(function(err, events){
         if(err) throw err;
-        res.header("Access-Control-Allow-Origin", "*");
         res.send(events);
     })
 });
@@ -136,20 +136,20 @@ app.post('/location/new/', function(req, res){
     });
 });
 
-app.post('/person/new/:name/:firstName/:isMale/:date', function(req,res){
+app.post('/person/new/', function(req,res){
 
     var tempPerson = new Person({
-        name: req.params.name,
-        firstName: req.params.firstName,
-        isMale: req.params.isMale,
-        birthday: req.params.date
+        name: req.query.name,
+        firstName: req.query.firstName,
+        isMale: req.query.isMale,
+        birthday: req.query.date
     })
 
     Person.find({
-        name: req.params.name,
-        firstName: req.params.firstName,
-        isMale: req.params.isMale,
-        birthday: req.params.date
+        name: req.query.name,
+        firstName: req.query.firstName,
+        isMale: req.query.isMale,
+        birthday: req.query.date
     }, function(err, persons){
         if(persons.length == 0){
             tempPerson.save(function(err){
