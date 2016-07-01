@@ -24,29 +24,38 @@ db.once('open', function callback(){
 
 app.get('/people/:id', function(req, res){
     Person.findOne({_id: req.params.id}, function(err, person){
-        if(err){console.log('no one found');}
+        if(err){
+            res.status(404).send('no entry');
+            console.log('no one found');
+        }
+        res.header("Access-Control-Allow-Origin", "*");
         res.send(person);
     })   
 });
 
 app.get('/people/:name', function(req, res){
     Person.find({name: req.params.name}, function(err, persons){
-        if(err){console.log('no one found');}
+        if(err){
+            res.status(404).send('no entry');
+            console.log('no one found');
+        }
+        res.header("Access-Control-Allow-Origin", "*");
         res.send(persons);
     })   
 });
 
 app.get('/events/search', function(req, res){
     var tempPerson;
-    Person.findOne({name: req.query.name}, function(err, person){
+    Person.findOne({name: new RegExp("^" + req.query.name + "$", 'i')}, function(err, person){
         if(!person){
-            res.send('Es ist keine Person mit diesem Namen hinterlegt');
+            res.status(404).send('Es ist keine Person mit diesem Namen hinterlegt');
         }
         tempPerson = person;
         }).then(function(){
             Event.find({inv_person: tempPerson}, function(err, events){
                 if(err) throw err;
-            res.send(events);
+            res.header("Access-Control-Allow-Origin", "*");
+            res.status(200).send(events);
         })
     })
 });
@@ -77,8 +86,11 @@ app.get('/events/:id',function(req, res){
     console.log('param: '+ req.params.id);
     Event.findOne({_id: req.params.id}, function(err, oneEvent){
         console.log(oneEvent);
-        if(err) throw err;
-        res.send(oneEvent);
+        if(err){
+            res.header("Access-Control-Allow-Origin", "*");
+            res.status(404).send('no Such event');
+        }
+        res.status(200).send(oneEvent);
     })
 });
 
