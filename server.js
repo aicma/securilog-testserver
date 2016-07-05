@@ -22,6 +22,22 @@ db.once('open', function callback(){
     
 })
 
+app.get('/people/', function(req, res){
+    res.header("Access-Control-Allow-Origin", "*");
+    Person.find(function(err, people){
+        if(err) throw err;
+        res.status(200).send(people);
+    })
+});
+
+app.get('/locations/', function(req, res){
+    res.header("Access-Control-Allow-Origin", "*");
+    Location.find(function(err, locations){
+        if(err) throw err;
+        res.status(200).send(locations);
+    })
+});
+
 app.get('/people/:id', function(req, res){
     Person.findOne({_id: req.params.id}, function(err, person){
         if(err){
@@ -34,7 +50,7 @@ app.get('/people/:id', function(req, res){
 });
 
 app.get('/people/:name', function(req, res){
-    Person.find({name: req.params.name}, function(err, persons){
+    Person.find({name: new RegExp("^" + req.params.name + "$", 'i')}, function(err, persons){
         if(err){
             res.status(404).send('no entry');
             console.log('no one found');
@@ -110,8 +126,9 @@ app.post('/event/new/', function(req, res){
     });
 
     req.on('end', function () {
+        console.log(jsonString);
         var tempEvent = new Event(JSON.parse(jsonString));
-        res.send(tempEvent);
+        res.status(200).send(tempEvent._id);
 
         tempEvent.save(function(err){
             if(err) throw err;
@@ -155,11 +172,11 @@ app.post('/person/new/', function(req,res){
             tempPerson.save(function(err){
             if(err) throw err;
             //TODO: Write Header
-            res.send(tempPerson.name + ' saved');
+            res.status(200).send(tempPerson._id);
             })
         }else{
             // TODO: Write Header
-            res.send('that person already exists in the Database')
+            res.status(403).send('that person already exists in the Database')
         }
     })
 });
