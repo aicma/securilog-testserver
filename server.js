@@ -164,7 +164,6 @@ app.post('/person/new/', function(req,res){
 
     Person.find({
         name: req.query.name,
-        firstName: req.query.firstName,
         isMale: req.query.isMale,
         birthday: req.query.date
     }, function(err, persons){
